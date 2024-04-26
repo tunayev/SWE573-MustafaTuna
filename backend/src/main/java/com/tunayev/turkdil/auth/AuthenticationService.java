@@ -1,13 +1,13 @@
 package com.tunayev.turkdil.auth;
 
 import com.tunayev.turkdil.enums.Role;
+import com.tunayev.turkdil.model.User;
 import com.tunayev.turkdil.repository.UserRepository;
 import com.tunayev.turkdil.services.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,16 +22,15 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
+                .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
         repository.save(user);
         var token = jwtService.generateToken(user);
-        return new AuthenticationResponse.builder()
-                .jwtToken(token)
+        return AuthenticationResponse.builder()
+                .token(token)
                 .build();
         
     }
@@ -45,8 +44,9 @@ public class AuthenticationService {
         );
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
-        return new AuthenticationResponse.builder()
-                .jwtToken(token)
+        var token = jwtService.generateToken(user);
+        return AuthenticationResponse.builder()
+                .token(token)
                 .build();
 
     }
