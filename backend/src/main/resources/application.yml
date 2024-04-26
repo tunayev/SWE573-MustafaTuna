@@ -13,3 +13,6 @@ spring:
           hibernate:
             dialect: org.hibernate.dialect.MySQLDialect
             format_sql: true
+    sentry:
+      dsn: https://1cedba400ea2a66494d9f7df7272c50e@o4504390082560000.ingest.us.sentry.io/4507155167510528
+      traces-sample-rate: 1.0

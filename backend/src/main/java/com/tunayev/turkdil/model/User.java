@@ -22,15 +22,8 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private int id;
-    private String username;
     private String password;
     private String email;
-    private String name;
-    private String surname;
-    private String status;
-    private String activationCode;
-    private String resetPasswordCode;
-
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -40,8 +33,13 @@ public class User implements UserDetails {
     }
 
     @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
     public String getPassword() {
-        return "";
+        return password;
     }
 
     @Override
@@ -61,6 +59,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

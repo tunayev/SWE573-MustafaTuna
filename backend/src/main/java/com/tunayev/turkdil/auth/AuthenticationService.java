@@ -4,12 +4,14 @@ import com.tunayev.turkdil.enums.Role;
 import com.tunayev.turkdil.model.User;
 import com.tunayev.turkdil.repository.UserRepository;
 import com.tunayev.turkdil.services.JwtService;
+import io.sentry.Sentry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import io.sentry.Sentry;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +24,6 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()
-                .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
@@ -48,6 +49,5 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(token)
                 .build();
-
     }
 }
