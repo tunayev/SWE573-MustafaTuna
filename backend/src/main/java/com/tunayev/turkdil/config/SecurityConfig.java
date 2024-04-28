@@ -29,12 +29,12 @@ public class SecurityConfig {
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 ).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizationManagerRequestMatcherRegistry ->
-                        authorizationManagerRequestMatcherRegistry.requestMatchers(HttpMethod.DELETE)
-                                .hasRole("ADMIN")
+                        authorizationManagerRequestMatcherRegistry
+                                .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
                                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                                 .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/api/v1/auth/**").permitAll()
-                                //.requestMatchers("/api/v1/demo").permitAll()
+                                .requestMatchers("/api/v1/**").permitAll() //TODO: remove this line
                                 .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider)
