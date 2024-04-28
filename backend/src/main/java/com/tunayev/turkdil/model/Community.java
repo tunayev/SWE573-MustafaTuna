@@ -15,6 +15,7 @@ import java.util.List;
 @Entity
 public class Community {
     @Id
+    @GeneratedValue
     private int id;
     private String name;
     private String description;

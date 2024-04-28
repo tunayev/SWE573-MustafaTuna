@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Builder
@@ -22,12 +23,14 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private int id;
-    private String password;
     private String email;
+    private String password;
+    private String nickname;
+    private String avatar;
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_community",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -68,5 +71,16 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isCommunityMember(Community community) {
+        return communities.stream()
+                .anyMatch(c -> c.getId() == community.getId());
+    }
+
+    public String getCommunityRole(Community community) {
+        // TODO: Get the community role by looking at the UserCommunity relationship.
+        return "admin";
+
     }
 }
