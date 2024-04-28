@@ -29,4 +29,5 @@ public class Template {
     private Community community;
 
     private Date createdDate;
+
 }
