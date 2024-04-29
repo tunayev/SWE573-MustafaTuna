@@ -7,7 +7,7 @@ console.log(communities)
 <div class="container mx-auto">
   <div class="flex justify-between items-center">
     <h1 class="text-2xl font-semibold">Communities</h1>
-    <NuxtLink to="/community/create" class="btn btn-primary">Create Community</NuxtLink>
+    <NuxtLink to="/community/create" class="btn-primary">Create Community</NuxtLink>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
     <div v-for="community in communities" :key="community.id" class="bg-white shadow-md rounded-lg p-4">
