@@ -39,6 +39,7 @@ public class CommunityService {
     }
 
     public Community update(int id, CommunityUpdateRequest request) {
+        // TODO: Authorization - check if user is allowed to update this community
         Community community = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Community not found"));
         community.setName(request.getName());
@@ -48,6 +49,7 @@ public class CommunityService {
     }
 
     public boolean delete(int id) {
+        // TODO: Authorization - check if user is allowed to delete this community
         repository.deleteById(id);
         return true;
     }
