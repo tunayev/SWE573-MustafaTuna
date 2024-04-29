@@ -21,8 +21,10 @@ public class CommunityController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CommunityDTO> get() {
-        return ResponseEntity.ok(communityService.get(1));
+    public ResponseEntity<CommunityDTO> get(
+            @PathVariable int id
+    ) {
+        return ResponseEntity.ok(communityService.get(id));
     }
 
     @PostMapping

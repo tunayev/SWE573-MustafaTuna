@@ -19,6 +19,7 @@ public class Community {
     private int id;
     private String name;
     private String description;
+    private boolean isPrivate;
 
     @ManyToMany(mappedBy = "communities")
     private List<User> users;
