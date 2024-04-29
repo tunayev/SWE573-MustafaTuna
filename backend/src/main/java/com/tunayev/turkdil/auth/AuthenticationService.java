@@ -32,6 +32,7 @@ public class AuthenticationService {
         var token = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(token)
+                .user(user)
                 .build();
         
     }
