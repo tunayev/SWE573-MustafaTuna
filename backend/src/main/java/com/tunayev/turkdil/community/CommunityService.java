@@ -44,6 +44,7 @@ public class CommunityService {
                 .orElseThrow(() -> new IllegalArgumentException("Community not found"));
         community.setName(request.getName());
         community.setDescription(request.getDescription());
+        community.setPrivate(request.isPrivate());
         repository.save(community);
         return community;
     }
@@ -54,4 +55,10 @@ public class CommunityService {
         return true;
     }
 
+    public List<CommunityDTO> search(String query) {
+        return repository.findByNameContaining(query)
+                .stream()
+                .map(mapper)
+                .collect(Collectors.toList());
+    }
 }

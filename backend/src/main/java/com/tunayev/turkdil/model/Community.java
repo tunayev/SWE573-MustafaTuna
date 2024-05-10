@@ -1,5 +1,6 @@
 package com.tunayev.turkdil.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +22,7 @@ public class Community {
     private String description;
     private boolean isPrivate;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "communities")
     private List<User> users;
 

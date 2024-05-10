@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommunityUpdateRequest {
+    private int id;
     private String name;
     private String description;
+    private boolean isPrivate;
 }

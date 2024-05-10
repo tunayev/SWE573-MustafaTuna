@@ -38,14 +38,21 @@ public class CommunityController {
     public ResponseEntity<Community> update(
             @RequestBody CommunityUpdateRequest request
     ) {
-        return ResponseEntity.ok(communityService.update(1, request));
+        return ResponseEntity.ok(communityService.update(request.getId(), request));
     }
 
     @DeleteMapping("/{id}")
     public boolean delete(
             @RequestBody CommunityDeleteRequest request
     ) {
-        return communityService.delete(1);
+        return communityService.delete(request.getId());
+    }
+
+    @GetMapping("/search")
+    public List<CommunityDTO> search(
+            @RequestParam String query
+    ) {
+        return communityService.search(query);
     }
 
 
