@@ -15,15 +15,7 @@ public class CommunityDTOMapper implements Function<Community, CommunityDTO>{
                 community.getId(),
                 community.getName(),
                 community.getDescription(),
-                community.getUsers().stream()
-                        .map(user -> new UserDTO(
-                                user.getId(),
-                                user.getEmail(),
-                                user.getNickname(),
-                                user.getAvatar()
-                                ))
-                        .collect(Collectors.toList()
-                        )
+                community.getUsers()
         );
     }
 

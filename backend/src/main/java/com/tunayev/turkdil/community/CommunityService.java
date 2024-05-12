@@ -1,6 +1,7 @@
 package com.tunayev.turkdil.community;
 
 import com.tunayev.turkdil.model.Community;
+import com.tunayev.turkdil.model.User;
 import com.tunayev.turkdil.repository.CommunityRepository;
 import com.tunayev.turkdil.user.UserDTO;
 import lombok.RequiredArgsConstructor;
@@ -60,5 +61,19 @@ public class CommunityService {
                 .stream()
                 .map(mapper)
                 .collect(Collectors.toList());
+    }
+
+    public CommunityDTO join(int id, User user) {
+        Community community = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Community not found"));
+        community.getUsers().add(user);
+        repository.save(community);
+        return mapper.apply(community);
+    }
+
+    public CommunityDTO leave(int id) {
+    }
+
+    public CommunityDTO approve(int id, int userId) {
     }
 }

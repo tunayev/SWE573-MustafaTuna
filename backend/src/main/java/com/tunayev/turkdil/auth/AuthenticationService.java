@@ -4,6 +4,7 @@ import com.tunayev.turkdil.enums.Role;
 import com.tunayev.turkdil.model.User;
 import com.tunayev.turkdil.repository.UserRepository;
 import com.tunayev.turkdil.services.JwtService;
+import com.tunayev.turkdil.user.UserDTOMapper;
 import io.sentry.Sentry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final UserDTOMapper mapper;
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = User.builder()

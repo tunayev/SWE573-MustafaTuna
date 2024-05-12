@@ -29,6 +29,8 @@ public class UserCommunity {
 
     String role;
 
+    boolean pending;
+
     public String getRole(Community community, User user) {
         return this.role;
     }

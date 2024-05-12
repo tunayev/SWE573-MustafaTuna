@@ -1,5 +1,6 @@
 package com.tunayev.turkdil.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tunayev.turkdil.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,8 @@ public class User implements UserDetails {
 
     @Column(unique=true)
     private String email;
+    
+    @JsonIgnore
     private String password;
     private String nickname;
     private String avatar;

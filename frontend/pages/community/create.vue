@@ -13,6 +13,7 @@ const createCommunity = async () => {
     })
     console.log(data)
     handleSuccess('Community created successfully')
+    return navigateTo('/community')
     if(error.value)
       throw new Error(error.value)
   } catch (e) {
