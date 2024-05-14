@@ -14,16 +14,15 @@ import lombok.NoArgsConstructor;
 @Entity(name = "user_community")
 public class UserCommunity {
 
-    @EmbeddedId
-    private UserCommunityKey userCommunityKey;
+    @Id
+    @GeneratedValue
+    private int id;
 
     @ManyToOne
-    @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
-    @MapsId("communityId")
     @JoinColumn(name = "community_id")
     private Community community;
 

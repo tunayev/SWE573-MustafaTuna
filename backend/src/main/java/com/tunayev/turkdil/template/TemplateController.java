@@ -36,9 +36,10 @@ public class TemplateController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TemplateDTO> update(
+            @PathVariable int id,
             @RequestBody TemplateUpdateRequest request
     ) {
-        return ResponseEntity.ok(templateService.update(1, request));
+        return ResponseEntity.ok(templateService.update(id, request));
     }
 
     @DeleteMapping("/{id}")

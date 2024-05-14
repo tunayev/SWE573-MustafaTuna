@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class CommunityCreateRequest {
     private String name;
     private String description;
+    private boolean isPrivate;
 }

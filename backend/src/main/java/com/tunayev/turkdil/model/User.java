@@ -43,6 +43,10 @@ public class User implements UserDetails {
     )
     private List<Community> communities;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<UserCommunity> userCommunities;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
@@ -86,6 +90,9 @@ public class User implements UserDetails {
     public String getCommunityRole(Community community) {
         // TODO: Get the community role by looking at the UserCommunity relationship.
         return "admin";
+    }
 
+    public void addUserCommunity(UserCommunity userCommunity) {
+        userCommunities.add(userCommunity);
     }
 }

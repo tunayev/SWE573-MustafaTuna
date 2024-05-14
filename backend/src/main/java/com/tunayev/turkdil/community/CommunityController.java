@@ -66,18 +66,20 @@ public class CommunityController {
     }
 
     @PostMapping("/{id}/leave")
-    public ResponseEntity<CommunityDTO> leave(
-            @PathVariable int id
+    public boolean leave(
+            @PathVariable int id,
+            @AuthenticationPrincipal User user
     ) {
-        return ResponseEntity.ok(communityService.leave(id));
+        return communityService.leave(id, user);
     }
 
     @PostMapping("/{id}/approve/{userId}")
     public ResponseEntity<CommunityDTO> approve(
             @PathVariable int id,
-            @PathVariable int userId
+            @PathVariable int userId,
+            @AuthenticationPrincipal User approver
     ) {
-        return ResponseEntity.ok(communityService.approve(id, userId));
+        return ResponseEntity.ok(communityService.approve(id, userId, approver));
     }
 
 

@@ -26,5 +26,12 @@ public class Community {
     @ManyToMany(mappedBy = "communities")
     private List<User> users;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "community")
+    private List<UserCommunity> userCommunities;
+
+    public void addUserCommunity(UserCommunity userCommunity) {
+        userCommunities.add(userCommunity);
+    }
 
 }

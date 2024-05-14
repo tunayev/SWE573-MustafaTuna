@@ -13,7 +13,7 @@ public class UserCommunityKey implements Serializable {
     @Column(name = "community_id")
     private int communityId;
 
-    @Override
+/*    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof UserCommunityKey)) return false;
@@ -25,6 +25,6 @@ public class UserCommunityKey implements Serializable {
     public int hashCode() {
         // TODO: Implement hashCode()
         return 0;
-    }
+    }*/
 
 }
