@@ -60,6 +60,8 @@ export function logout() {
 
 export const joinCommunity = async (community: Community) => {
     const auth = useAuthStore()
+    if(!auth.loggedIn)
+        return navigateTo('/auth/login')
     const { data, error } = await useCustomFetch('/communities/' + community.id + '/join', {
         method: 'POST',
     })
@@ -68,6 +70,12 @@ export const joinCommunity = async (community: Community) => {
         return
     }
     community.users.push(auth?.user)
+    const { user } = useAuthStorage()
+    if(!user.value?.communities)
+        user.value.communities = []
+    user.value.communities.push(community)
+    user.value = JSON.stringify(user.value)
+
     handleSuccess('Community joined successfully')
 }
 
@@ -90,7 +98,12 @@ export const leaveCommunity = async (community: Community) => {
         return
     }
     const auth = useAuthStore()
+    const { user } = useAuthStorage()
     const index = community.users.findIndex(member => member.id === auth?.user?.id)
+    if(index === -1) return
+    if(!user.value.communities)
+        user.value.communities = []
+    user.value.communities = user.value.communities.filter(c => c.id !== community.id)
     community.users.splice(index, 1)
     handleSuccess('Community left successfully')
 }
