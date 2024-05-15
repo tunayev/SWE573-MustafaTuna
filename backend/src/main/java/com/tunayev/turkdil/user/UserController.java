@@ -1,6 +1,8 @@
 package com.tunayev.turkdil.user;
 
+import com.tunayev.turkdil.model.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,10 +12,18 @@ import java.util.List;
 @RequestMapping("/api/v1/users")
 public class UserController {
     private final UserService userService;
+    private final UserDTOMapper mapper;
 
     @GetMapping("/")
     public List<UserDTO> getAll() {
         return userService.getAll();
+    }
+
+    @GetMapping("/me")
+    public User getMe(
+            @AuthenticationPrincipal User user
+    ) {
+        return user;
     }
 
     @GetMapping("/{id}")
@@ -49,6 +59,4 @@ public class UserController {
     ) {
         return userService.search(query);
     }
-
-
 }

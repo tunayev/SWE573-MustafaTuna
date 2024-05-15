@@ -32,6 +32,9 @@ export const useAuthStore = defineStore({
 
             this.loggedIn = false
             this.user = null
+        },
+        fetchUser() {
+
         }
     },
 })

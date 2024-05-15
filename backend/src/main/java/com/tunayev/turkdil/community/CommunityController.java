@@ -2,6 +2,7 @@ package com.tunayev.turkdil.community;
 
 import com.tunayev.turkdil.model.Community;
 import com.tunayev.turkdil.model.User;
+import com.tunayev.turkdil.model.UserCommunity;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.mapper.Mapper;
 import org.springframework.http.ResponseEntity;
@@ -80,6 +81,23 @@ public class CommunityController {
             @AuthenticationPrincipal User approver
     ) {
         return ResponseEntity.ok(communityService.approve(id, userId, approver));
+    }
+
+    @GetMapping("/{id}/getRole")
+    public String getRole(
+            @PathVariable int id,
+            @AuthenticationPrincipal User user
+    ) {
+        // Get the role of the user in the community
+        return communityService.getRole(id, user);
+    }
+
+    @GetMapping("/{id}/getUserCommunity")
+    public ResponseEntity<UserCommunity> getUserCommunity(
+            @PathVariable int id,
+            @AuthenticationPrincipal User user
+    ) {
+        return ResponseEntity.ok(communityService.getUserCommunity(id, user));
     }
 
 

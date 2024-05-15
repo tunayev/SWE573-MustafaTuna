@@ -29,7 +29,6 @@ const auth = useAuthStore()
           {{ item.title }}
         </NuxtLink>
       </template>
-      <LangSwitcher />
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end">
       <div @click="logout" v-if="auth.loggedIn" to="/logout" class="cursor-pointer text-sm font-semibold leading-6 text-gray-900">

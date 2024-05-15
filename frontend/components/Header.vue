@@ -9,7 +9,6 @@ if(true) {
 }
 const navigation: NavigationItem[] = ref([
   { title: 'Anasayfa', to: '/' },
-  { title: 'Giriş', to: '/auth/login' },
   { title: 'Topluluklar', to: '/community' },
   {title: 'Topluluk Oluştur', to: '/community/create'}
 ])
