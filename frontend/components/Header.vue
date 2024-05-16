@@ -4,9 +4,6 @@ const props = defineProps<{
   hideBg?: boolean
 }>()
 const route = useRoute()
-if(true) {
-  props.hideBg = true
-}
 const navigation: NavigationItem[] = ref([
   { title: 'Anasayfa', to: '/' },
   { title: 'Topluluklar', to: '/community' },

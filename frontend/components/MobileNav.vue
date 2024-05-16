@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { XMarkIcon } from '@heroicons/vue/24/outline'
+import {XMarkIcon} from '@heroicons/vue/24/outline'
 import {
   Dialog, DialogPanel,
   Disclosure,
@@ -22,10 +22,10 @@ const mobileMenu = useMobileMenu()
     <Dialog as="div" :open="mobileMenu" @close="mobileMenu = false">
       <DialogPanel focus="true" class="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden">
         <div class="flex items-center justify-between">
-          <Logo />
+          <Logo/>
           <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700" @click="mobileMenu = false">
             <span class="sr-only">Close menu</span>
-            <XMarkIcon class="h-6 w-6" aria-hidden="true" />
+            <XMarkIcon class="h-6 w-6" aria-hidden="true"/>
           </button>
         </div>
         <div class="mt-6 flow-root">
@@ -33,25 +33,28 @@ const mobileMenu = useMobileMenu()
             <div class="space-y-2 py-6">
               <template v-for="item in navigation" :key="item.title">
                 <Disclosure v-if="item.children">
-                  <DisclosureButton class="-mx-3 text-left block w-full rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10">
+                  <DisclosureButton
+                      class="-mx-3 text-left block w-full rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10">
                     {{ item.title }}
-                    <Icon name="heroicons:chevron-down-20-solid" class="w-5 h-5 ml-2" />
+                    <Icon name="heroicons:chevron-down-20-solid" class="w-5 h-5 ml-2"/>
                   </DisclosureButton>
                   <DisclosurePanel class="text-gray-500 px-4 border-l">
                     <NuxtLink
-                      v-for="child in item.children"
-                      :key="child.title"
-                      :to="child.to" class="-mx-3 block rounded-lg py-2 px-3 text-base font-medium leading-7 text-gray-900 hover:bg-gray-400/10"
-                      @click="mobileMenu = false"
+                        v-for="child in item.children"
+                        :key="child.title"
+                        :to="child.to"
+                        class="-mx-3 block rounded-lg py-2 px-3 text-base font-medium leading-7 text-gray-900 hover:bg-gray-400/10"
+                        @click="mobileMenu = false"
                     >
                       {{ child.title }}
                     </NuxtLink>
                   </DisclosurePanel>
                 </Disclosure>
                 <NuxtLink
-                  v-else
-                  :to="item.to" class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10"
-                  @click="mobileMenu = false"
+                    v-else
+                    :to="item.to"
+                    class="-mx-3 block rounded-lg py-2 px-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-400/10"
+                    @click="mobileMenu = false"
                 >
                   {{ item.title }}
                 </NuxtLink>
@@ -66,6 +69,14 @@ const mobileMenu = useMobileMenu()
               >
                 Giriş
               </NuxtLink>
+              <div
+                  v-if="auth.loggedIn"
+                  @click="logout"
+                  to="/logout"
+                  class="cursor-pointer -mx-3 block rounded-lg py-2.5 px-3 text-base font-semibold leading-6 text-gray-900 hover:bg-gray-400/10"
+              >
+                Çıkış Yap <span aria-hidden="true">&rarr;</span>
+              </div>
             </div>
           </div>
         </div>

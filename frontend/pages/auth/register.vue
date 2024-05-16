@@ -19,7 +19,6 @@ const {handleSubmit} = useForm({
     nickname: string().required().label('Nickname'),
     email: string().required().email().label('Email'),
     password: string()?.required().label('Password'),
-    nickname: string().required().label('Nickname'),
   }),
 })
 
@@ -47,11 +46,6 @@ const onSubmit = handleSubmit(async (values) => {
       body: JSON.stringify(values),
       watch:false
     })
-/*    const data = {
-      token: "random",
-      user: values,
-      refresh_token: null
-    }*/
     if(error.value)
       throw "Lütfen bilgileri kontrol ediniz"
     console.log(data)

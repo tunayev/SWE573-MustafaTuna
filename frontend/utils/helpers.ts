@@ -25,6 +25,8 @@ export function handleError(e: any) {
         title: 'Hata',
         message: 'Bir hata oluştu',
     }
+    if('string' == typeof e)
+        error.message = e;
     if(e.message)
         error.message = e.message;
     if(e.status == 422) {
@@ -83,7 +85,6 @@ export const checkIfJoined = (community: Community) => {
     const auth = useAuthStore()
     if(auth.user) {
         const joined = community.users.some(member => member.id === auth?.user?.id)
-        console.log(joined)
         return joined
     }
     return false
@@ -106,4 +107,22 @@ export const leaveCommunity = async (community: Community) => {
     user.value.communities = user.value.communities.filter(c => c.id !== community.id)
     community.users.splice(index, 1)
     handleSuccess('Community left successfully')
+}
+
+export const checkIfModerator = (community: Community) => {
+    const auth = useAuthStore()
+    if(auth.user) {
+        const moderator = community.moderators.some(moderator => moderator.id === auth?.user?.id)
+        return moderator
+    }
+    return false
+}
+
+export const checkIfAdmin = (community: Community) => {
+    const auth = useAuthStore()
+    if(auth.user) {
+        const admin = community.admin?.id === auth?.user?.id
+        return admin
+    }
+    return false
 }

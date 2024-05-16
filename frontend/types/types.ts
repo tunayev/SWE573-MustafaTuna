@@ -20,5 +20,8 @@ export interface Community {
     name: string;
     description: string;
     isPrivate: boolean;
-    users: User[] | AuthUser[]
+    users: User[] | AuthUser[];
+    owner: User;
+    moderators: User[];
+    posts: Post[];
 }

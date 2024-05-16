@@ -8,8 +8,10 @@ import com.tunayev.turkdil.repository.UserCommunityRepository;
 import com.tunayev.turkdil.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +43,15 @@ public class CommunityService {
                 .description(request.getDescription())
                 .build();
         repository.save(community);
+        // Add the creator to the community as an admin
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserCommunity userCommunity = UserCommunity.builder()
+                .user(user)
+                .community(community)
+                .role("ADMIN")
+                .pending(false)
+                .build();
+        userCommunityRepository.save(userCommunity);
         return community;
     }
 

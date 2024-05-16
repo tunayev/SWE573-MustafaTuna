@@ -2,10 +2,7 @@ package com.tunayev.turkdil.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,12 +10,17 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(uniqueConstraints = { @UniqueConstraint(name = "UniqueName", columnNames = { "name" }) })
 @Entity
 public class Community {
     @Id
     @GeneratedValue
     private int id;
+
+    @NonNull
     private String name;
+
+    @NonNull
     private String description;
     private boolean isPrivate;
 
@@ -29,9 +31,5 @@ public class Community {
     @JsonIgnore
     @OneToMany(mappedBy = "community")
     private List<UserCommunity> userCommunities;
-
-    public void addUserCommunity(UserCommunity userCommunity) {
-        userCommunities.add(userCommunity);
-    }
 
 }

@@ -9,6 +9,8 @@ public record CommunityDTO(
         String name,
         boolean isPrivate,
         String description,
-        List<User> users
+        List<User> users,
+        User admin,
+        List<User> moderators
 ) {
 }

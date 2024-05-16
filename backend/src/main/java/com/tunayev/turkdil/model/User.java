@@ -19,6 +19,10 @@ import java.util.Optional;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(uniqueConstraints = {
+        @UniqueConstraint(name = "UniqueEmail", columnNames = { "email" }),
+        @UniqueConstraint(name = "UniqueNickname", columnNames = { "nickname" })
+})
 @Entity
 public class User implements UserDetails {
     @Id
@@ -30,6 +34,7 @@ public class User implements UserDetails {
     
     @JsonIgnore
     private String password;
+
     private String nickname;
     private String avatar;
     @Enumerated(EnumType.STRING)
