@@ -89,7 +89,10 @@ public class User implements UserDetails {
 
     public String getCommunityRole(Community community) {
         // TODO: Get the community role by looking at the UserCommunity relationship.
-        return "admin";
+        Optional<UserCommunity> userCommunity = userCommunities.stream()
+                .filter(uc -> uc.getCommunity().getId() == community.getId())
+                .findFirst();
+        return userCommunity.orElseThrow().role;
     }
 
     public void addUserCommunity(UserCommunity userCommunity) {

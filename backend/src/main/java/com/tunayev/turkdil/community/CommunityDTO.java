@@ -7,6 +7,7 @@ import java.util.List;
 public record CommunityDTO(
         int id,
         String name,
+        boolean isPrivate,
         String description,
         List<User> users
 ) {

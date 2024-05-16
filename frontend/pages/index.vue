@@ -2,5 +2,5 @@
 const auth = useAuthStore()
 </script>
 <template>
-  Hoşgeldiniz {{auth.user?.username}}
+  Hoşgeldiniz {{auth.user?.nickname}}
 </template>

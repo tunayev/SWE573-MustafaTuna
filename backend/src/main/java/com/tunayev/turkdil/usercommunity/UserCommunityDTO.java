@@ -8,6 +8,7 @@ import com.tunayev.turkdil.user.UserDTO;
 public record UserCommunityDTO (
         UserDTO user,
         CommunityDTO community,
-        String communityRole
+        String communityRole,
+        boolean pending
 ) {
 }

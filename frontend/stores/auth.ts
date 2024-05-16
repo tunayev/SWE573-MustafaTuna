@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
+import type {User} from "~/types/types";
 
-export interface AuthUser extends Record<string, any> {}
+export interface AuthUser extends User {}
 
 export interface AuthState {
     loggedIn: boolean
@@ -19,7 +20,6 @@ export const useAuthStore = defineStore({
         return {
             loggedIn: !!token.value,
             user: user.value,
-            locale: user.value?.locale,
             loading: false,
             accessToken: token.value,
             refreshToken: refresh_token.value
@@ -32,6 +32,9 @@ export const useAuthStore = defineStore({
 
             this.loggedIn = false
             this.user = null
+        },
+        fetchUser() {
+
         }
     },
 })

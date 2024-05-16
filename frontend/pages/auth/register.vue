@@ -19,6 +19,7 @@ const {handleSubmit} = useForm({
     nickname: string().required().label('Nickname'),
     email: string().required().email().label('Email'),
     password: string()?.required().label('Password'),
+    nickname: string().required().label('Nickname'),
   }),
 })
 
@@ -41,7 +42,7 @@ const onSubmit = handleSubmit(async (values) => {
   console.log(values)
   try {
     const config = useRuntimeConfig()
-    const {data} = await useCustomFetch('/auth/register', {
+    const {data, error} = await useCustomFetch('/auth/register', {
       method: 'POST',
       body: JSON.stringify(values),
       watch:false
@@ -51,6 +52,8 @@ const onSubmit = handleSubmit(async (values) => {
       user: values,
       refresh_token: null
     }*/
+    if(error.value)
+      throw "Lütfen bilgileri kontrol ediniz"
     console.log(data)
     // login user
     const token = data.value.token

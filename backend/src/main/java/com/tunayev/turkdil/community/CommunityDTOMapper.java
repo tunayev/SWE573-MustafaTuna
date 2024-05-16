@@ -14,6 +14,7 @@ public class CommunityDTOMapper implements Function<Community, CommunityDTO>{
         return new CommunityDTO(
                 community.getId(),
                 community.getName(),
+                community.isPrivate(),
                 community.getDescription(),
                 community.getUsers()
         );

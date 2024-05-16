@@ -5,6 +5,7 @@ import com.tunayev.turkdil.model.User;
 import com.tunayev.turkdil.model.UserCommunity;
 import com.tunayev.turkdil.repository.CommunityRepository;
 import com.tunayev.turkdil.repository.UserCommunityRepository;
+import com.tunayev.turkdil.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 public class CommunityService {
 
     private final CommunityRepository repository;
+    private final UserRepository userRepository;
     private final CommunityDTOMapper mapper;
     private final UserCommunityRepository userCommunityRepository;
 
@@ -89,10 +91,16 @@ public class CommunityService {
     }
 
     public boolean leave(int id, User user) {
+        // 1. Check if the community exists
         Community community = repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Community not found"));
-        community.getUsers().remove(user);
-        //repository.save(community);
+        // 2. Check if the user is in the community
+        UserCommunity userCommunity = userCommunityRepository.findAll().stream()
+                .filter(uc -> uc.getUser().getId() == user.getId() && uc.getCommunity().getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("User is not in the community"));
+        // 3. Remove the user from the community
+        userCommunityRepository.delete(userCommunity);
         return true;
     }
 
@@ -122,4 +130,24 @@ public class CommunityService {
         //repository.save(community);
         return mapper.apply(community);
     }
+
+    public String getRole(int communityId, User user) {
+        // 1. Find the UserCommunity relationship
+        UserCommunity userCommunity = userCommunityRepository.findAll().stream()
+                .filter(uc -> uc.getUser().getId() == user.getId() && uc.getCommunity().getId() == communityId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("User is not in the community"));
+        return userCommunity.getRole();
+    }
+
+
+    public UserCommunity getUserCommunity(int communityId, User user) {
+        // 1. Find the UserCommunity relationship
+        UserCommunity userCommunity = userCommunityRepository.findAll().stream()
+                .filter(uc -> uc.getUser().getId() == user.getId() && uc.getCommunity().getId() == communityId)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("User is not in the community"));
+        return userCommunity;
+    }
+
 }
