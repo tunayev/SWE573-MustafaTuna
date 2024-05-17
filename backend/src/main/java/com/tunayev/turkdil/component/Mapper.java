@@ -12,7 +12,8 @@ public class Mapper {
                 user.getEmail(),
                 user.getNickname(),
                 user.getAvatar(),
-                user.getCommunities()
+                user.getCommunities(),
+                user.getPosts()
         );
     }
 

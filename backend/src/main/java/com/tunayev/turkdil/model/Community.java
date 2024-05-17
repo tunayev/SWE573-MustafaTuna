@@ -1,6 +1,7 @@
 package com.tunayev.turkdil.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tunayev.turkdil.post.Post;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,4 +33,19 @@ public class Community {
     @OneToMany(mappedBy = "community")
     private List<UserCommunity> userCommunities;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "community")
+    private List<Post> posts;
+
+/*    @JsonIgnore
+    @OneToMany
+    private List<Community> subCommunities;
+
+    @JsonIgnore
+    @ManyToOne
+    private Community parentCommunity;*/
+
+    @JsonIgnore
+    @OneToMany
+    private List<Template> templates;
 }

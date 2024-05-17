@@ -20,8 +20,23 @@ export interface Community {
     name: string;
     description: string;
     isPrivate: boolean;
-    users: User[] | AuthUser[];
-    owner: User;
+    users: User[];
+    admin: User;
     moderators: User[];
     posts: Post[];
+}
+
+export interface Post {
+    id: number;
+    title: string;
+    body: PostField[];
+    community: Community;
+    user: User;
+    comments: Comment[];
+}
+
+export interface PostField {
+    type: "text" | "image" | "video" | "audio" | "geolocation";
+    name: string;
+    value: string | null;
 }

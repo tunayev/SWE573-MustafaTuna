@@ -23,11 +23,12 @@ public class CommunityDTOMapper implements Function<Community, CommunityDTO> {
                         .filter(userCommunity -> userCommunity.getRole().equals("ADMIN"))
                         .map(UserCommunity::getUser)
                         .findFirst()
-            .orElse(null),
+                        .orElse(null),
                 community.getUserCommunities().stream()
                         .filter(userCommunity -> userCommunity.getRole().equals("MODERATOR"))
                         .map(UserCommunity::getUser)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                community.getTemplates()
         );
     }
 

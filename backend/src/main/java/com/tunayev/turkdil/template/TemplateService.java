@@ -34,9 +34,9 @@ public class TemplateService {
                 .orElseThrow(() -> new IllegalArgumentException("Template not found"));
     }
 
-    public TemplateDTO save(TemplateCreateRequest request, User user) {
+    public Template save(TemplateCreateRequest request, User user) {
         // TODO: Authorization - check if user is allowed to create a template
-        // TODO: Validation - check if the
+        // TODO: Validation - check if the fields are valid
         Community community = communityRepository.findById(request.getCommunityId())
                 .orElseThrow(() -> new IllegalArgumentException("Community not found"));
 
@@ -45,9 +45,9 @@ public class TemplateService {
         template.setFields(request.getFields());
         template.setUser(user);
         template.setCommunity(community);
-        TemplateDTO templateDTO = TemplateDTOMapper.apply(template);
-        templateRepository.save(template);
-        return templateDTO;
+        return templateRepository.save(template);
+        /*TemplateDTO templateDTO = TemplateDTOMapper.apply(template);
+        return templateDTO;*/
     }
 
     public TemplateDTO update(int id, TemplateUpdateRequest templateUpdateRequest) {

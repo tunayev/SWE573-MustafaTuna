@@ -1,5 +1,6 @@
 package com.tunayev.turkdil.community;
 
+import com.tunayev.turkdil.model.Template;
 import com.tunayev.turkdil.model.User;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public record CommunityDTO(
         String description,
         List<User> users,
         User admin,
-        List<User> moderators
+        List<User> moderators,
+        List<Template> templates
 ) {
 }

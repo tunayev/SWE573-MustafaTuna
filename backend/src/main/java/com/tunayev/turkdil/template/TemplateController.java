@@ -27,7 +27,7 @@ public class TemplateController {
     }
 
     @PostMapping
-    public ResponseEntity<TemplateDTO> create(
+    public ResponseEntity<Template> create(
             @RequestBody TemplateCreateRequest request,
             @AuthenticationPrincipal User user
     ) {
