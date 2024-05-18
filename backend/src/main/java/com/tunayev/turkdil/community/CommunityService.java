@@ -142,6 +142,103 @@ public class CommunityService {
         return mapper.apply(community);
     }
 
+    public CommunityDTO invite(int id, int userId) {
+        User inviter = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Get inviter role in the community by looking at the UserCommunity relationship
+        boolean hasRights = UserCommunity.builder()
+                .user(inviter)
+                .community(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Community not found")))
+                .build()
+                .getRole().equals("ADMIN");
+        if (!hasRights) {
+            throw new IllegalArgumentException("User does not have rights to invite users");
+        }
+
+        Community community = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Community not found"));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        UserCommunity userCommunity = UserCommunity.builder()
+                .user(user)
+                .community(community)
+                .pending(true)
+                .role("MEMBER")
+                .build();
+        userCommunityRepository.save(userCommunity);
+        return mapper.apply(community);
+    }
+
+    public CommunityDTO acceptInvite(int id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Get user role in the community by looking at the UserCommunity relationship
+        String role = UserCommunity.builder()
+                .user(user)
+                .community(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Community not found")))
+                .build()
+                .getRole();
+        if (!role.equals("MEMBER")) {
+            throw new IllegalArgumentException("User does not have rights to accept invite");
+        }
+
+        Community community = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Community not found"));
+        UserCommunity userCommunity = userCommunityRepository.findAll().stream()
+                .filter(uc -> uc.getUser().getId() == user.getId() && uc.getCommunity().getId() == id)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("User is not invited to the community"));
+        userCommunity.setPending(false);
+        userCommunityRepository.save(userCommunity);
+        return mapper.apply(community);
+    }
+
+    public CommunityDTO requestModerator(int id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Get user role in the community by looking at the UserCommunity relationship
+        String role = UserCommunity.builder()
+                .user(user)
+                .community(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Community not found")))
+                .build()
+                .getRole();
+        if (!role.equals("MEMBER")) {
+            throw new IllegalArgumentException("User does not have rights to request moderator");
+        }
+
+        Community community = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Community not found"));
+        UserCommunity userCommunity = UserCommunity.builder()
+                .user(user)
+                .community(community)
+                .pending(true)
+                .role("MODERATOR")
+                .build();
+        userCommunityRepository.save(userCommunity);
+        return mapper.apply(community);
+    }
+
+    public List<User> getPendingUsers(int id) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Get user role in the community by looking at the UserCommunity relationship
+        String role = UserCommunity.builder()
+                .user(user)
+                .community(repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Community not found")))
+                .build()
+                .getRole();
+        if (!role.equals("ADMIN")) {
+            throw new IllegalArgumentException("User does not have rights to view pending users");
+        }
+
+        Community community = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Community not found"));
+        return community.getUsers().stream()
+                .filter(u -> userCommunityRepository.findAll().stream()
+                        .anyMatch(uc -> uc.getUser().getId() == u.getId() && uc.getCommunity().getId() == id && uc.isPending()))
+                .collect(Collectors.toList());
+    }
+
     public String getRole(int communityId, User user) {
         // 1. Find the UserCommunity relationship
         UserCommunity userCommunity = userCommunityRepository.findAll().stream()

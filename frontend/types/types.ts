@@ -40,3 +40,10 @@ export interface PostField {
     name: string;
     value: string | null;
 }
+
+export interface Comment {
+    id: number;
+    body: string;
+    user: User;
+    post: Post;
+}

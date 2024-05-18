@@ -21,8 +21,8 @@ public class TemplateService {
     private final CommunityRepository communityRepository;
     private final TemplateDTOMapper TemplateDTOMapper;
 
-    public List<TemplateDTO> getAll() {
-        return templateRepository.findAll()
+    public List<TemplateDTO> getAll(int communitId) {
+        return templateRepository.findAllByCommunityId(communitId)
                 .stream()
                 .map(TemplateDTOMapper)
                 .collect(Collectors.toList());
@@ -34,10 +34,10 @@ public class TemplateService {
                 .orElseThrow(() -> new IllegalArgumentException("Template not found"));
     }
 
-    public Template save(TemplateCreateRequest request, User user) {
+    public Template save(TemplateCreateRequest request, User user, int communityId) {
         // TODO: Authorization - check if user is allowed to create a template
         // TODO: Validation - check if the fields are valid
-        Community community = communityRepository.findById(request.getCommunityId())
+        Community community = communityRepository.findById(communityId)
                 .orElseThrow(() -> new IllegalArgumentException("Community not found"));
 
         Template template = new Template();

@@ -55,7 +55,6 @@ const onSubmit = handleSubmit(async (values) => {
   }
   catch (e: any) {
     handleError(e)
-    error.value = e.data.error
   }
 })
 </script>
