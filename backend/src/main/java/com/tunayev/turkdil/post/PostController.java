@@ -27,12 +27,12 @@ public class PostController {
         return postService.create(request);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/update")
     public Post update(@PathVariable int id, @RequestBody PostUpdateRequest request) {
         return postService.update(id, request);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     public void delete(@PathVariable int id) {
         postService.delete(id);
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tunayev.turkdil.post.Post;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 import java.util.List;
 
@@ -46,6 +47,6 @@ public class Community {
     private Community parentCommunity;*/
 
     @JsonIgnore
-    @OneToMany
+    @OneToMany(mappedBy = "community")
     private List<Template> templates;
 }

@@ -28,7 +28,8 @@ public class CommunityDTOMapper implements Function<Community, CommunityDTO> {
                         .filter(userCommunity -> userCommunity.getRole().equals("MODERATOR"))
                         .map(UserCommunity::getUser)
                         .collect(Collectors.toList()),
-                community.getTemplates()
+                community.getTemplates(),
+                community.getPosts()
         );
     }
 

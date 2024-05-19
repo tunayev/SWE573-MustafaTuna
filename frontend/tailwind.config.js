@@ -11,4 +11,8 @@ module.exports = {
         './node_modules/windplus/styles/*.{vue,js,css}',
         './node_modules/windplus/styles/main.css',
     ],
+    plugins: [
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/forms'),
+    ]
 }

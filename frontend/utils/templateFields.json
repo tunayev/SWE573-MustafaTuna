@@ -10,8 +10,13 @@
     "value": "41.2063632681756, 27.1295387971128"
   },
   {
-    "name": "Açıklama",
+    "name": "Kısa Meti",
     "type": "text",
+    "value": "Bu bir kısa metindir."
+  },
+  {
+    "name": "Uzun Metin",
+    "type": "textarea",
     "value": "Bu bir açıklamadır."
   },
   {
