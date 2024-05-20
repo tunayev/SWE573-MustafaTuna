@@ -26,8 +26,16 @@
   },
   "devDependencies": {
     "@cssninja/nuxt-toaster": "^0.3.12",
+    "@types/google.maps": "^3.55.8",
     "typescript": "^5.4.5",
-    "vue-tsc": "^1",
-    "@types/google.maps": "^3.55.8"
+    "vue-tsc": "^1"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.17.2"
+  },
+  "overrides": {
+    "vite": {
+      "rollup": "npm:@rollup/wasm-node"
+    }
   }
 }
