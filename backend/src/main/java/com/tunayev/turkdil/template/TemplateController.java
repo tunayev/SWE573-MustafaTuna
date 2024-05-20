@@ -16,25 +16,28 @@ import java.util.List;
 public class TemplateController {
     private final TemplateService templateService;
 
-    @GetMapping
-    public List<TemplateDTO> getAll() {
-        return templateService.getAll();
+    @GetMapping("/{communityId}")
+    public List<TemplateDTO> getAll(
+            @PathVariable int communityId
+    ) {
+        return templateService.getAll(communityId);
     }
 
-    @GetMapping("/{id}")
+    @PostMapping("/{communityId}")
+    public ResponseEntity<Template> create(
+            @RequestBody TemplateCreateRequest request,
+            @AuthenticationPrincipal User user,
+            @PathVariable int communityId
+    ) {
+        return ResponseEntity.ok(templateService.save(request, user, communityId));
+    }
+
+    @GetMapping("/t/{id}")
     public ResponseEntity<TemplateDTO> get() {
         return ResponseEntity.ok(templateService.get(1));
     }
 
-    @PostMapping
-    public ResponseEntity<TemplateDTO> create(
-            @RequestBody TemplateCreateRequest request,
-            @AuthenticationPrincipal User user
-    ) {
-        return ResponseEntity.ok(templateService.save(request, user));
-    }
-
-    @PutMapping("/{id}")
+    @PutMapping("/t/{id}")
     public ResponseEntity<TemplateDTO> update(
             @PathVariable int id,
             @RequestBody TemplateUpdateRequest request
@@ -42,7 +45,7 @@ public class TemplateController {
         return ResponseEntity.ok(templateService.update(id, request));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/t/{id}")
     public boolean delete(
             @RequestBody TemplateDeleteRequest request
     ) {

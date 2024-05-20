@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  spring_service:
+    build: .
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - spring-network
+    environment:
+      - spring.datasource.url=jdbc:mysql://db:3306/turkdil?allowPublicKeyRetrieval=true
+      - spring.datasource.username=mysqluser
+      - spring.datasource.password=mysqlpassword
+      - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+      - spring.jpa.hibernate.ddl-auto=update
+      - spring.jpa.show-sql=true
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+    depends_on:
+      - db
+    volumes:
+      - .m2:/root/.m2
+
+  db:
+    image: "mysql:8.0"
+    restart: always
+    ports:
+      - 3306:3306
+    networks:
+      - spring-network
+    environment:
+      MYSQL_DATABASE: turkdil
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: mysqlpassword
+      MYSQL_ROOT_PASSWORD: mysqlpassword
+
+  frontend-prod:
+    build:
+      context: ./../frontend
+      dockerfile: ./../frontend/prod.dockerfile
+    container_name: nuxt-app
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "24678:24678"
+    depends_on:
+      - spring_service
+networks:
+  spring-network:

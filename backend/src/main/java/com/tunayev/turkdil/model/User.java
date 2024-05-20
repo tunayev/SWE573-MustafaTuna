@@ -2,6 +2,7 @@ package com.tunayev.turkdil.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tunayev.turkdil.enums.Role;
+import com.tunayev.turkdil.post.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,6 +52,10 @@ public class User implements UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<UserCommunity> userCommunities;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

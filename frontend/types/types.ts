@@ -20,8 +20,38 @@ export interface Community {
     name: string;
     description: string;
     isPrivate: boolean;
-    users: User[] | AuthUser[];
-    owner: User;
+    users: User[];
+    admin: User;
     moderators: User[];
     posts: Post[];
+}
+
+export interface Post {
+    id: number;
+    title: string;
+    body: PostField[] | string;
+    user: User;
+    community: Community;
+    communityId: string;
+    template: Template;
+    templateId: string;
+    comments: Comment[];
+}
+
+export interface Template {
+    name: string;
+    fields: PostField[] | string
+}
+
+export interface PostField {
+    type: "text" | "image" | "video" | "audio" | "geolocation" | "textarea";
+    name: string;
+    value: string | null;
+}
+
+export interface Comment {
+    id: number;
+    body: string;
+    user: User;
+    post: Post;
 }

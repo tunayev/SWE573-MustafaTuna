@@ -15,8 +15,14 @@ const props = defineProps<{
         </NuxtLink>
         <Icon name="ri:git-repository-private-fill" v-if="community.isPrivate" class="w-5 h-5 text-gray-400"/>
       </div>
-      <Icon v-if="checkIfAdmin(community)" name="ri:settings-2-line" class="w-5 h-5 text-gray-400"/>
-      <Icon v-else-if="checkIfModerator(community)" name="ri:equalizer-line" class="w-5 h-5 text-gray-400"/>
+      <Icon v-if="checkIfAdmin(community) || checkIfModerator(community)"
+            name="ri:settings-2-line" class="w-5 h-5 text-gray-400 cursor-pointer"
+            @click="navigateTo('/community/' + community.id + '/update')"
+      />
+      <Icon v-else-if="checkIfModerator(community)"
+            name="ri:equalizer-line" class="w-5 h-5 text-gray-400"
+            @click="navigateTo('/community/' + community.id + '/moderation')"
+      />
       <button v-else-if="!checkIfJoined(community)" @click="joinCommunity(community)" class="btn">
         {{ community.isPrivate ? 'Talep gönder' : 'Katıl' }}
       </button>

@@ -39,9 +39,10 @@ public class CommunityController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Community> update(
-            @RequestBody CommunityUpdateRequest request
+            @RequestBody CommunityUpdateRequest request,
+            @PathVariable int id
     ) {
-        return ResponseEntity.ok(communityService.update(request.getId(), request));
+        return ResponseEntity.ok(communityService.update(id, request));
     }
 
     @DeleteMapping("/{id}")

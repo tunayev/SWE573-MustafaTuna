@@ -55,7 +55,6 @@ const onSubmit = handleSubmit(async (values) => {
   }
   catch (e: any) {
     handleError(e)
-    error.value = e.data.error
   }
 })
 </script>
@@ -70,7 +69,7 @@ const onSubmit = handleSubmit(async (values) => {
           class="bg-white relative rounded-lg px-10 py-8 w-full max-w-md mx-auto"
           @submit="onSubmit"
       >
-        <AuthHeader title="Giriş" subtitle="Bilgilerinizi girin"/>
+        <AuthHeader title="Giriş Yapın" subtitle="Bilgilerinizi girin"/>
 
         <div v-if="error" class="bg-error-600 text-white text-sm px-4 py-3 rounded-lg mb-4">
           {{ error }}

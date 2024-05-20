@@ -1,5 +1,6 @@
 <script setup>
-const { data: templates } = useCustomFetch('/templates')
+const { data: community } = await useCustomFetch('/communities/' + params.id)
+const { data: templates } = useCustomFetch('/templates/')
 </script>
 <template>
   <div>
