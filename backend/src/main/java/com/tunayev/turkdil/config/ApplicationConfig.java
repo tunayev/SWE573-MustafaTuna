@@ -53,7 +53,13 @@ public class ApplicationConfig {
     CorsConfigurationSource corsConfigurationSource() {
         // TODO - configure allowed origins and methods
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://topluluk.edugerman.com", "http://78.141.194.85:3000"));
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:3000",
+                "https://topluluk.edugerman.com",
+                "http://78.141.194.85:3000",
+                "http://78.141.194.85",
+                "https://turkdil.com"
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
         configuration.setAllowCredentials(true);
         configuration.addAllowedHeader("Authorization");

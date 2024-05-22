@@ -1,6 +1,0 @@
-spring.jpa.hibernate.ddl-auto=update
-spring.datasource.url=jdbc:mysql://localhost:3306/turkdil?allowPublicKeyRetrieval=true
-spring.datasource.username=mysqluser
-spring.datasource.password=mysqlpassword
-
-spring.sql.init.mode=always

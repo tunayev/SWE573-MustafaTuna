@@ -26,8 +26,16 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `community` (`id`, `is_private`, `description`, `name`) VALUES
-(1, b'0', 'asd', 'Almanca 2'),
-(2, b'0', 'Çince topluluğu', 'Çince');
+(1, b'0', 'Almanca', 'Almanca öğrenmek isteyenler icin'),
+(2, b'0', 'Çince topluluğu', 'Çince öğrenmek isteyenler icin'),
+(3, b'0', 'İspanyolca topluluğu', 'İspanyolca öğrenmek isteyenler icin'),
+(4, b'0', 'Fransızca topluluğu', 'Fransızca öğrenmek isteyenler icin'),
+(5, b'0', 'İtalyanca topluluğu', 'İtalyanca öğrenmek isteyenler icin'),
+(6, b'0', 'Japonca topluluğu', 'Japonca öğrenmek isteyenler icin'),
+(7, b'0', 'Korece topluluğu', 'Korece öğrenmek isteyenler icin'),
+(8, b'0', 'Rusça topluluğu', 'Rusça öğrenmek isteyenler icin'),
+(9, b'0', 'Türkçe topluluğu', 'Türkçe öğrenmek isteyenler icin'),
+(10, b'0', 'İngilizce topluluğu', 'İngilizce öğrenmek isteyenler icin');
 
 --
 -- Tablo döküm verisi `community_seq`

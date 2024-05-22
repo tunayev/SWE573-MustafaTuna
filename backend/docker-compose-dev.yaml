@@ -33,15 +33,16 @@ services:
       MYSQL_PASSWORD: mysqlpassword
       MYSQL_ROOT_PASSWORD: mysqlpassword
 
-  frontend-prod:
+  frontend:
     build:
       context: ./../frontend
-      dockerfile: ./../frontend/prod.dockerfile
     container_name: nuxt-app
     ports:
       - "3000:3000"
       - "3001:3001"
       - "24678:24678"
+    volumes:
+      - ./../frontend:/src
     depends_on:
       - spring_service
 networks:

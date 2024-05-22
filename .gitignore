@@ -1,7 +1,6 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 frontend/node_modules
-backend/src/main/resources/application.yml
 ### STS ###
 .apt_generated
 .classpath

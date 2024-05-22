@@ -11,6 +11,7 @@ export default defineNuxtConfig({
             environment: process.env.ENVIRONMENT,
             gmapsKey: process.env.GMAPS_KEY,
         },
+        mapsApi: process.env.MAPS_API,
     },
     css: ['~/assets/css/app.css']
 })

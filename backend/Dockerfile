@@ -1,14 +1,9 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-alpine
-
-# Set the working directory inside the container
-WORKDIR /app
-
-# Copy the executable jar file from the target directory to the working directory
-COPY target/turkdil-0.0.1-SNAPSHOT.jar app.jar
-
-# Expose the port the application runs on
+#
+# Build stage
+#
+FROM maven:3.8.3-openjdk-17 AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package -DskipTests
 EXPOSE 8080
-
-# Run the jar file
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java","-jar","/home/app/target/turkdil_docker.jar"]

@@ -7,10 +7,11 @@
 </template>
 <script setup lang="ts">
 if (process.server) {
+  const config = useRuntimeConfig()
   useHead({
     script: [
       {
-        src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAVd41C5rLq3Ice-jY7nJ2S4_S62842qcU&v=weekly',
+        src: 'https://maps.googleapis.com/maps/api/js?key=' + config.mapsApi + '&v=weekly',
         async: true,
         defer: true
       }
